@@ -1,0 +1,46 @@
+{
+    "app_name": "PySmartDeskNorm",
+    "version" : "v1.0.0",
+    "copyright" : "",
+    "year" : 2022,
+    "theme" : "default",
+    "custom_title_bar": true,
+    "font" : {
+        "family" : "Segoe UI",
+        "title_size" : 10,
+        "text_size" : 9
+    },
+    "size": {
+        "preferred": {
+            "width" : 1024,
+            "height" : 768
+        },
+        "minimum": {
+            "width" : 800,
+            "height" : 600
+        },
+        "menu": {
+            "minimum" : 50,
+            "maximum" : 240
+        },
+        "column": {
+            "minimum" : 0,
+            "maximum" : 240
+        }
+    },
+    "margins": {
+        "menu_content": {
+            "top": 3,
+            "right": 3,
+            "bottom": 3,
+            "left": 3
+        },
+        "default": {
+            "top": 5,
+            "right": 5,
+            "bottom": 5,
+            "left": 5
+        }
+    },
+    "time_animation" : 500
+}
