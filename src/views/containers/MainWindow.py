@@ -7,6 +7,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.settings = {**Settings().items, **Themes().items}
+        
+        self.render()
 
     def render(self):
-        pass
+        print(self.settings)

@@ -7,7 +7,7 @@ from .Settings import Settings
 class Themes(object):
     def __init__(self, *args, **kwargs):
         theme_name = Settings().items['theme']
-        file_name = kwargs.get('theme', theme_name, 'default')
+        file_name = kwargs.get('theme', theme_name)
         self.file_path = "resources/themes/{file_name}.json".format(file_name = file_name)
         if not os.path.isfile(self.file_path):
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file_name)
@@ -20,6 +20,6 @@ class Themes(object):
             json.dump(self.items, write, indent=4)
     
     def deserialize(self):
-        with open(self.settings_path, "r", encoding='utf-8') as reader:
+        with open(self.file_path, "r", encoding='utf-8') as reader:
             settings = json.loads(reader.read())
             self.items = settings

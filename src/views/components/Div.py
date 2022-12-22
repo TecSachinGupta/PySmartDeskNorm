@@ -12,6 +12,6 @@ class Div(QFrame):
         if kwargs.get("parent") is not None:
             self.setParent(kwargs.get("parent"))
         if kwargs.get("color") is not None:
-            self.setStyleSheet("background: {color};".format(color=kwargs.get("color")))'
+            self.setStyleSheet("background: {color};".format(color=kwargs.get("color")))
         
         self.setLayout(content)

@@ -12,6 +12,6 @@ if __name__ == "__main__" :
     os.environ["QT_FONT_DPI"] = str(int(dpi))
     # app.setWindowIcon(QIcon("resource/favicon.ico"))
     window = MainWindow()
-    # window.show()
+    window.show()
 
     sys.exit(app.exec())

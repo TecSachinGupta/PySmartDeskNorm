@@ -4,6 +4,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+![GitHub repo size]
 
 # Description
 PySmartDeskNorm is a PySide6 Boilerplate for creating a Python based Desktop application.
@@ -23,12 +24,14 @@ PySmartDeskNorm is a PySide6 Boilerplate for creating a Python based Desktop app
 
 # Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
 ## Prerequisites
 What things you need to install the software and how to install them
 * Anaconda
 	1. Downlaod Anaconda from official website.
-     2. On Windows follow the Installer.
+    2. On Windows follow the Installer.
 	3. On Ubuntu use terminal to run the downloaded file and follow the instruction
+
 ## Installing
 A step by step series of examples that tell you how to get a development env running
 1. Clone this PySmartDeskNorm repository.
@@ -41,10 +44,10 @@ A step by step series of examples that tell you how to get a development env run
      ```
 3. Run code using 
 	```
-		python -B src/app.py
+		cd src/ & python -B app.py
 	```
-## Structure
 
+## Structure
 ```
 .
 │   
@@ -66,23 +69,24 @@ A step by step series of examples that tell you how to get a development env run
 
 ## Process Flow
 
+![Layout](src/resources/others/layout.svg)
 
 
 ## Components
-![IN-PROGRESS] 
-![NEEDTESTING] 
-![COMPLETED] 
-![FUTUREWORK] 
-![FUTUREWORK] 
+![Label](https://img.shields.io/badge/-Status%20Labels-black?style=for-the-badge) ![IN-PROGRESS]  ![NEEDTESTING]  ![COMPLETED]  ![OUTDATED]  ![FUTUREWORK] 
 
-|Status        |Name                 |Location                |Description                                                 |
-|:------------:|---------------------|------------------------|------------------------------------------------------------|
-|![IN-PROGRESS]|Comoponents          |views.widgets           |  |
+|Status        |Name                 |Location                |Description                                                             |
+|:------------:|---------------------|------------------------|------------------------------------------------------------------------|
+|![IN-PROGRESS]|AnimatedToggle       |views.components        |Custom Animated Toggle button using the Checkbox widget and animation.  |
+|![IN-PROGRESS]|Button               |views.components        |Custom button using the Push button.  |
+|![IN-PROGRESS]|Column               |views.components        |Class having the vertical layout to place content.  |
+|![IN-PROGRESS]|Div                  |views.components        |Genric wrapper class to provide the background.  |
+|![IN-PROGRESS]|Row                  |views.components        |Class having the horizontal layout to place content.  |
 
 
 # Credits
-
  - [PyOneDark](https://github.com/Wanderson-Magalhaes/PyOneDark_Qt_Widgets_Modern_GUI/) by WANDERSON M.PIMENTA: Repository for QT Modern UI.
+ - [Animating custom widgets with QPropertyAnimation](https://www.pythonguis.com/tutorials/pyside6-animated-widgets/) by Salem Al Bream: Blog on creting the Animated Toggle Button
 
 
 

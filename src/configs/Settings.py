@@ -17,6 +17,6 @@ class Settings(object):
             json.dump(self.items, write, indent=4)
     
     def deserialize(self):
-        with open(self.settings_path, "r", encoding='utf-8') as reader:
+        with open(self.file_path, "r", encoding='utf-8') as reader:
             settings = json.loads(reader.read())
             self.items = settings
