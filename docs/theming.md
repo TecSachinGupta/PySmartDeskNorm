@@ -30,11 +30,30 @@ the layout rhythm.
 
 `configs/Themes.py`'s `Themes.apply(app)` reads the loaded theme's tokens and builds one
 QSS stylesheet, then calls `app.setStyleSheet(...)` once. `app.py` calls this exactly once
-at startup. No component should ever call `self.setStyleSheet(...)` on itself outside of
-that — everything should be themeable through this single stylesheet, plus the
-`Button` `variant`/`themeColors` pattern described in
+at startup, using the `Themes` instance `MainWindow` already resolved (`window.theme`), so
+theme resolution happens in exactly one place. No component should call
+`self.setStyleSheet(...)` on itself — everything should be themeable through this single
+stylesheet, plus the `Button` `variant`/`themeColors` pattern described in
 [adding-a-component.md](adding-a-component.md) for widgets that need per-instance colors
 (e.g. a `danger` vs `primary` button).
+
+Two pre-existing components are deliberate exceptions: `Tooltip` and `Div` both take their
+colors as constructor arguments rather than hardcoding them, and neither is theme-token
+driven. They are grandfathered in — don't copy that pattern for new components.
+
+State-dependent styling (e.g. the sidebar's active item) is driven by a **dynamic
+property** plus a QSS attribute selector rather than a per-widget stylesheet, so it stays
+theme-driven:
+
+```python
+self.setProperty("active", self.active)
+self.style().unpolish(self)
+self.style().polish(self)
+```
+
+```css
+QWidget#sidebarItem[active="true"] { background-color: <accentColor>; }
+```
 
 ## Switching themes at runtime
 

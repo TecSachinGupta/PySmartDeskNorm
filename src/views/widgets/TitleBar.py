@@ -16,7 +16,6 @@ class TitleBar(QWidget):
 
         self.title_label = QLabel(self.settings.get("app_name", "App"))
         self.title_label.setObjectName("titleLabel")
-        self.title_label.setStyleSheet("color: #dce1ec; font-weight: 700;")
 
         self._build_window_controls()
         self._build_layout()
@@ -53,7 +52,6 @@ class TitleBar(QWidget):
                 self.close_button,
             ],
         )
-        row.setStyleSheet("QWidget#titleBarRow { background: #21252d; border: none; }")
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(10, 6, 10, 6)

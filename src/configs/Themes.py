@@ -33,9 +33,11 @@ class Themes:
         radius = self.items.get("radius", {})
         controls = self.items.get("controls", {})
 
+        window_bg = colors.get("backgroundColor", "#1b1e23")
         bg = colors.get("primaryBackgroundColor", "#2c313c")
         bg_alt = colors.get("secondaryBackgroundColor", "#21252d")
         text = colors.get("textPrimaryColor", "#dce1ec")
+        text_active = colors.get("textActiveColor", "#f5f6f9")
         accent = colors.get("accentColor", "#6c99f4")
         surface = colors.get("surfaceColor", "#343b48")
         body_font = typography.get("font_family", "Segoe UI")
@@ -53,19 +55,43 @@ class Themes:
             font-family: "{body_font}";
             font-size: {body_size}pt;
         }}
+        QLabel {{
+            background-color: transparent;
+        }}
+        QWidget#appshell {{
+            background-color: {window_bg};
+        }}
         QWidget#sidebar {{
             background-color: {bg_alt};
         }}
         QWidget#sidebarItem {{
+            background-color: transparent;
+            border: 1px solid transparent;
             border-radius: {radius_value}px;
             padding: {padding_y}px {padding_x}px;
+            color: {text};
+        }}
+        QWidget#sidebarItem:hover {{
+            background-color: {surface};
+        }}
+        QWidget#sidebarItem[active="true"] {{
+            background-color: {accent};
+            border: 1px solid {accent};
+            color: {text_active};
+        }}
+        QWidget#sidebarItem[active="true"] QLabel {{
+            color: {text_active};
         }}
         QWidget#titleBarRow {{
             background-color: {bg_alt};
         }}
         QLabel#titleLabel {{
+            color: {text};
             font-size: {title_size}pt;
             font-weight: 600;
+        }}
+        QWidget#creditsBar {{
+            background-color: {bg_alt};
         }}
         QPushButton {{
             min-height: {control_height}px;

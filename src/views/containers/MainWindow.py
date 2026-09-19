@@ -10,8 +10,9 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         base_settings = Settings().items
-        theme_name = SettingsService().get_theme(default=base_settings.get("theme", "default"))
-        self.settings = {**base_settings, **Themes(theme=theme_name).items}
+        self.theme_name = SettingsService().get_theme(default=base_settings.get("theme", "default"))
+        self.theme = Themes(theme=self.theme_name)
+        self.settings = {**base_settings, **self.theme.items}
         self.setWindowTitle(self.settings.get("app_name", "App"))
         if self.settings.get("custom_title_bar", False):
             self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
@@ -26,5 +27,5 @@ class MainWindow(QMainWindow):
         self.render()
 
     def render(self):
-        shell = AppShell(name="appShell", settings=self.settings)
+        shell = AppShell(settings=self.settings)
         self.setCentralWidget(shell)

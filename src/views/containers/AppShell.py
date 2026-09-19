@@ -23,8 +23,7 @@ from views.widgets.TitleBar import TitleBar
 class AppShell(QWidget):
     def __init__(self, name=None, parent=None, settings=None, settings_controller=None):
         super().__init__(parent)
-        if name is not None:
-            self.setObjectName(name)
+        self.setObjectName(name or "appshell")
         self.settings = settings or {}
         self._settings_controller = settings_controller
 
@@ -52,9 +51,6 @@ class AppShell(QWidget):
         body_layout.addWidget(self.stacked_widget, 1)
         outer_layout.addLayout(body_layout)
         outer_layout.addWidget(self.credits_bar)
-
-        self.setStyleSheet("QWidget#appshell { background: #1b1e23; }")
-        self.setObjectName("appshell")
 
         self._register_pages()
         self.navigation_service.page_changed.connect(self._show_page)

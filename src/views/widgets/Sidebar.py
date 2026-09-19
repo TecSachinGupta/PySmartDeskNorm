@@ -62,27 +62,10 @@ class SidebarItem(QWidget):
         self._apply_state()
 
     def _apply_state(self):
-        self.setStyleSheet(
-            """
-            QWidget#sidebarItem {
-                background: transparent;
-                border-radius: 10px;
-                color: #dce1ec;
-            }
-            QWidget#sidebarItem:hover {
-                background: rgba(255, 255, 255, 0.08);
-            }
-            """
-            if not self.active
-            else """
-            QWidget#sidebarItem {
-                background: rgba(86, 138, 242, 0.2);
-                border: 1px solid rgba(86, 138, 242, 0.6);
-                border-radius: 10px;
-                color: #f5f6f9;
-            }
-            """
-        )
+        # Styling comes from the applied theme's QSS via this dynamic property.
+        self.setProperty("active", self.active)
+        self.style().unpolish(self)
+        self.style().polish(self)
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -107,7 +90,6 @@ class Sidebar(QWidget):
 
     def _build_ui(self):
         self.setMinimumWidth(120)
-        self.setStyleSheet("QWidget#sidebar { background: #2c313c; border: none; }")
         self.setObjectName("sidebar")
         column = Column(name="sidebarColumn", widgets=self.items)
         layout = QVBoxLayout(self)

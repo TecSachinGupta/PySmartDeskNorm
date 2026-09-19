@@ -8,3 +8,5 @@ This folder holds architecture notes, feature guides, and contributor documentat
   and the sidebar.
 - [adding-a-component.md](adding-a-component.md) — where components live, the theming
   convention, and the testing pattern.
+- [copilot-boilerplate-branch-prompt-v2.md](copilot-boilerplate-branch-prompt-v2.md) —
+  the phase-by-phase spec this branch was built against; the source of truth for scope.
