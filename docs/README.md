@@ -4,6 +4,8 @@ This folder holds architecture notes, feature guides, and contributor documentat
 
 - [theming.md](theming.md) — the token schema, how `Themes.apply()` builds the app
   stylesheet, and how to add a new theme.
+- [components.md](components.md) — catalog of every generic component in
+  `views/components/`: constructor signature, signals, and notable behavior.
 - [adding-a-page.md](adding-a-page.md) — wiring a new page into `AppShell`, navigation,
   and the sidebar.
 - [adding-a-component.md](adding-a-component.md) — where components live, the theming

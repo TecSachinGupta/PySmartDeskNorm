@@ -6,6 +6,8 @@ from views.components.Row import Row
 
 
 class TitleBar(QWidget):
+    HEIGHT = 48
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.settings = kwargs.get("settings") or {}
@@ -22,24 +24,37 @@ class TitleBar(QWidget):
 
     def _build_window_controls(self):
         colors = self.settings.get("colors", {})
+        size = self.settings.get("controls", {}).get("window_control_size", 28)
+        # A radius of half the side length is what makes the square button render circular.
+        radius = size // 2
+
         self.minimize_button = Button(
             name="minimizeButton",
-            label="—",
-            width=32,
-            height=24,
-            variant="ghost",
+            label="\u2212",
+            width=size,
+            height=size,
+            radius=radius,
+            variant="secondary",
             themeColors=colors,
         )
         self.maximize_button = Button(
             name="maximizeButton",
-            label="□",
-            width=32,
-            height=24,
-            variant="ghost",
+            label="\u25a1",
+            width=size,
+            height=size,
+            radius=radius,
+            variant="secondary",
             themeColors=colors,
         )
         self.close_button = Button(
-            name="closeButton", label="✕", width=32, height=24, variant="danger", themeColors=colors
+            name="closeButton",
+            label="\u2715",
+            width=size,
+            height=size,
+            radius=radius,
+            variant="danger",
+            themeColors=colors,
+            backgroundColor=colors.get("errorColor", "#ff5555"),
         )
 
     def _build_layout(self):
@@ -58,7 +73,7 @@ class TitleBar(QWidget):
         layout.setSpacing(8)
         layout.addWidget(row)
 
-        self.setFixedHeight(48)
+        self.setFixedHeight(self.HEIGHT)
 
         self.minimize_button.clicked.connect(lambda: self.window().showMinimized())
         self.maximize_button.clicked.connect(self._toggle_maximize)

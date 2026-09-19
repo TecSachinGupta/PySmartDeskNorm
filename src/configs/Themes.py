@@ -75,6 +75,9 @@ class Themes:
         }}
 
         /* ---- Title bar ---- */
+        QLabel#logoSlot {{
+            background-color: {bg_alt};
+        }}
         QWidget#titleBarRow {{
             background-color: {bg_alt};
         }}
@@ -130,13 +133,21 @@ class Themes:
 
         /* ---- Cards ---- */
         QFrame#sectionCard, QFrame#statCard, QFrame#activityCard,
-        QFrame#toolCard, QFrame#actionButton {{
+        QFrame#toolCard, QFrame#actionButton, QFrame#appCard {{
             background-color: {surface};
             border: 1px solid transparent;
             border-radius: {radius_value}px;
         }}
-        QFrame#actionButton:hover, QFrame#toolCard:hover {{
+        QFrame#actionButton:hover, QFrame#toolCard:hover, QFrame#appCard:hover {{
             border: 1px solid {accent};
+        }}
+        QLabel#appCardTitle {{
+            font-weight: 600;
+            color: {text};
+        }}
+        QLabel#appCardMeta {{
+            color: {text_muted};
+            font-size: {caption_size}pt;
         }}
         QLabel#statCardTitle, QLabel#statCardDescription {{
             color: {text_muted};

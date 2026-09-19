@@ -7,20 +7,26 @@
 ![GitHub repo size]
 
 # Description
-PySmartDeskNorm is a PySide6 Boilerplate for creating a Python based Desktop application.
+PySmartDeskNorm is a PySide6 boilerplate for building a themeable Python desktop
+application: a frameless custom title bar, sidebar navigation, a small reusable
+component library, and a working set of pages (Dashboard, Applications, Tools,
+Settings, About).
 
 # Features
- - Modern UI
- - Custom Title Bar
- - Easy to change configure setting and themes by changing json(s)
+ - Frameless window with a custom title bar and sidebar navigation
+ - Live theming — switch themes from the Settings page, no restart required
+ - Preferences persisted via `QSettings` (theme, credits message, credits bar visibility)
+ - A small app-tracking Dashboard/Applications pair sharing one data source
+ - A reusable component library: button variants, cards, inputs, and feedback components
 
 # Screenshots
 
-![PySmartDeskNorm - Capa](https://user-images.githubusercontent.com/60605512/127739671-653eccb8-49da-4244-ae48-a8ae9b9b6fb2.png)
+Not committed to the repo yet — run the app locally (see Getting Started below) to see
+the current UI.
 
 # Built With
- - Python = 3.11.0 ![Python](https://img.shields.io/badge/-Python-1e415e?logo=python&style=flat-square)
- - PySide = 6.4.0 ![Python](https://img.shields.io/badge/-PySide6-1e415e?logo=PySide&style=flat-square)
+ - Python >= 3.13 ![Python](https://img.shields.io/badge/-Python-1e415e?logo=python&style=flat-square)
+ - PySide6 == 6.11.2 ![Python](https://img.shields.io/badge/-PySide6-1e415e?logo=PySide&style=flat-square)
 
 # Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -46,24 +52,32 @@ These instructions will get you a copy of the project up and running on your loc
    python -B src/app.py
    ```
 
+## Testing and linting
+```bash
+pytest -q
+ruff check .
+ruff format .
+```
+
 ## Structure
 ```
 .
-│   
+│
+├─── docs                 # architecture notes and contributor guides — start here
 ├─── src
-│    ├─── configs
-│    ├─── constants
-│    ├─── controllers
-│    ├─── models
-│    ├─── resources
-│    ├─── services
-│    ├─── utils
+│    ├─── configs         # Settings/Themes loaders
+│    ├─── constants       # page ids, signal names
+│    ├─── controllers     # mediates between a page's widgets and its service
+│    ├─── models          # plain data classes (e.g. Application)
+│    ├─── resources       # fonts, icons, images, settings/themes json
+│    ├─── services        # navigation, settings, and application tracking
+│    ├─── utils           # logging setup, resource-path resolution
 │    └─── views
-│         ├─── components
-│         ├─── containers
-│         ├─── pages
-│         └─── widgets
-└─── test 
+│         ├─── components # reusable UI primitives (Button, Row, StatCard, ...)
+│         ├─── containers # MainWindow, AppShell
+│         ├─── pages      # Dashboard, Applications, Tools, Settings, About
+│         └─── widgets    # app chrome: TitleBar, Sidebar, CreditsBar
+└─── tests                # mirrors src/, one test module per source module
 ```
 
 ## Process Flow
@@ -71,16 +85,14 @@ These instructions will get you a copy of the project up and running on your loc
 ![Layout](src/resources/others/layout.svg)
 
 
-## Components
-![Label](https://img.shields.io/badge/-Status%20Labels-black?style=for-the-badge) ![IN-PROGRESS]  ![NEEDTESTING]  ![COMPLETED]  ![OUTDATED]  ![FUTUREWORK] 
+## Documentation
 
-|Status        |Name                 |Location                |Description                                                             |
-|:------------:|---------------------|------------------------|------------------------------------------------------------------------|
-|![IN-PROGRESS]|AnimatedToggle       |views.components        |Custom Animated Toggle button using the Checkbox widget and animation.  |
-|![IN-PROGRESS]|Button               |views.components        |Custom button using the Push button.  |
-|![IN-PROGRESS]|Column               |views.components        |Class having the vertical layout to place content.  |
-|![IN-PROGRESS]|Div                  |views.components        |Genric wrapper class to provide the background.  |
-|![IN-PROGRESS]|Row                  |views.components        |Class having the horizontal layout to place content.  |
+See [docs/](docs/README.md) for the full set of guides:
+ - [docs/theming.md](docs/theming.md) — the token schema and how to add a new theme
+ - [docs/components.md](docs/components.md) — catalog of every generic UI component
+ - [docs/adding-a-page.md](docs/adding-a-page.md) — wiring a new page into the app
+ - [docs/adding-a-component.md](docs/adding-a-component.md) — component conventions
+ - [docs/testing.md](docs/testing.md) — where tests live and shared fixtures
 
 
 # Credits
@@ -88,12 +100,6 @@ These instructions will get you a copy of the project up and running on your loc
  - [Animating custom widgets with QPropertyAnimation](https://www.pythonguis.com/tutorials/pyside6-animated-widgets/) by Salem Al Bream: Blog on creting the Animated Toggle Button
 
 
-
-[IN-PROGRESS]: https://img.shields.io/badge/-In--Progress-yellow?style=flat-square
-[NEEDTESTING]: https://img.shields.io/badge/-Needs%20Testing-green?style=flat-square
-[COMPLETED]: https://img.shields.io/badge/-Completed-brightgreen?style=flat-square
-[OUTDATED]: https://img.shields.io/badge/-Outdated-red?style=flat-square
-[FUTUREWORK]: https://img.shields.io/badge/-Future--Work-blue?style=flat-square
 
 [contributors-shield]: https://img.shields.io/github/contributors/TecSachinGupta/PySmartDeskNorm.svg?style=for-the-badge
 [contributors-url]: https://github.com/TecSachinGupta/PySmartDeskNorm/graphs/contributors

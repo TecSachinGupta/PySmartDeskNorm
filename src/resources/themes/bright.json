@@ -47,7 +47,9 @@
   "controls": {
     "height": 32,
     "compact_height": 28,
-    "icon_size": 18
+    "icon_size": 18,
+    "window_control_size": 28,
+    "logo_size": 24
   },
   "other_colors": {
     "dark_one" : "#1b1e23",
