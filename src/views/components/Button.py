@@ -95,6 +95,13 @@ class Button(QPushButton):
         if parent is not None:
             self.setParent(parent)
 
+        if variant:
+            resolved = _resolve_variant_colors(variant, themeColors or {})
+            backgroundColor = backgroundColor or resolved["background"]
+            backgroundHoverColor = backgroundHoverColor or resolved["backgroundHover"]
+            backgroundPressedColor = backgroundPressedColor or resolved["backgroundPressed"]
+            textColor = textColor or resolved["text"]
+
         self._label = label
         self._textColor = textColor
         self._contextColor = contextColor
@@ -122,13 +129,9 @@ class Button(QPushButton):
         self.setFixedSize(width, height)
         self.setCursor(Qt.PointingHandCursor)
 
-        self._tooltip = Tooltip(
-            parent=appParent,
-            backgroundColor=backgroundColor,
-            textColor=textColor,
-            tooltipText=tooltipLabel,
-        )
-        self._tooltip.hide()
+        # Built lazily on first hover so buttons without tooltip text never spawn a window.
+        self._tooltipLabel = tooltipLabel
+        self._tooltip = None
 
     @Property(bool)
     def isActive(self):
@@ -157,24 +160,29 @@ class Button(QPushButton):
         self._isToggleActive = isToggleActive
         self.update()
 
+    def _ensure_tooltip(self):
+        if self._tooltip is None and self._tooltipLabel:
+            self._tooltip = Tooltip(
+                parent=self._parent or self.window(),
+                backgroundColor=self._backgroundHoverColor or "#343b48",
+                textColor=self._textColor or "#f5f6f9",
+                tooltipText=self._tooltipLabel,
+            )
+            self._tooltip.hide()
+        return self._tooltip
+
     def moveTooltip(self):
-        # GET MAIN WINDOW PARENT
+        if self._tooltip is None:
+            return
         reference = self._parent or self.window()
         if reference is None:
             return
         gp = self.mapToGlobal(QPoint(0, 0))
-
-        # SET WIDGET TO GET POSTION
-        # Return absolute position of widget inside app
         pos = reference.mapFromGlobal(gp)
 
-        # FORMAT POSITION
-        # Adjust tooltip position with offset
         pos_x = (pos.x() - (self._tooltip.width() // 2)) + (self.width() // 2)
-        pos_y = pos.y() - self._margin.get("top", 0)
+        pos_y = pos.y() - self._margin.get("top", self._tooltip.height() + 6)
 
-        # SET POSITION TO WIDGET
-        # Move tooltip position
         self._tooltip.move(pos_x, pos_y)
 
     def paintIcon(self, qp, image, rect):
@@ -237,13 +245,14 @@ class Button(QPushButton):
 
     def enterEvent(self, event):
         self.changeStyle(QEvent.Enter)
-        self.moveTooltip()
-        self._tooltip.show()
+        if self._ensure_tooltip() is not None:
+            self.moveTooltip()
+            self._tooltip.show()
 
     def leaveEvent(self, event):
         self.changeStyle(QEvent.Leave)
-        self.moveTooltip()
-        self._tooltip.hide()
+        if self._tooltip is not None:
+            self._tooltip.hide()
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:

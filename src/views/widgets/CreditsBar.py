@@ -7,6 +7,7 @@ class CreditsBar(QWidget):
         super().__init__()
         if kwargs.get("name") is not None:
             self.setObjectName(kwargs.get("name"))
+        self.setAttribute(Qt.WA_StyledBackground, True)
 
         if kwargs.get("parent") is not None:
             self.setParent(kwargs.get("parent"))

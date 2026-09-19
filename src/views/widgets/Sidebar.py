@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QLabel, QSizePolicy, QVBoxLayout, QWidget
 
 from constants import (
     PAGE_ID_ABOUT,
@@ -35,27 +35,24 @@ class SidebarItem(QWidget):
 
     def _build_ui(self):
         self.setObjectName("sidebarItem")
+        # Plain QWidget subclasses ignore QSS backgrounds without this.
+        self.setAttribute(Qt.WA_StyledBackground, True)
         self.setCursor(Qt.PointingHandCursor)
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(12, 10, 12, 10)
-        layout.setSpacing(4)
+        self.setFixedHeight(66)
 
-        icon_row = QWidget()
-        icon_layout = QVBoxLayout(icon_row)
-        icon_layout.setContentsMargins(0, 0, 0, 0)
-        icon_layout.addWidget(self.icon_label, 0, Qt.AlignCenter)
+        self.icon_label.setObjectName("sidebarItemIcon")
         self.icon_label.setAlignment(Qt.AlignCenter)
-
-        text_widget = QWidget()
-        text_layout = QVBoxLayout(text_widget)
-        text_layout.setContentsMargins(0, 0, 0, 0)
+        self.label.setObjectName("sidebarItemLabel")
         self.label.setAlignment(Qt.AlignCenter)
-        text_layout.addWidget(self.label)
 
-        layout.addWidget(icon_row)
-        layout.addWidget(text_widget)
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(8, 8, 8, 8)
+        layout.setSpacing(2)
+        layout.addWidget(self.icon_label)
+        layout.addWidget(self.label)
 
         if self.badge_label is not None:
+            self.badge_label.setObjectName("sidebarItemBadge")
             self.badge_label.setAlignment(Qt.AlignCenter)
             layout.addWidget(self.badge_label)
 
@@ -89,13 +86,16 @@ class Sidebar(QWidget):
         self._build_ui()
 
     def _build_ui(self):
-        self.setMinimumWidth(120)
         self.setObjectName("sidebar")
+        self.setAttribute(Qt.WA_StyledBackground, True)
+        self.setFixedWidth(136)
         column = Column(name="sidebarColumn", widgets=self.items)
+        column.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(10, 10, 10, 10)
+        layout.setContentsMargins(10, 12, 10, 12)
         layout.setSpacing(8)
         layout.addWidget(column)
+        layout.addStretch(1)
 
     def set_active_page(self, page_id: str) -> None:
         for item in self.items:

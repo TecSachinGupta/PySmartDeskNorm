@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QHBoxLayout, QStackedWidget, QVBoxLayout, QWidget
 
 from constants import (
@@ -24,6 +25,7 @@ class AppShell(QWidget):
     def __init__(self, name=None, parent=None, settings=None, settings_controller=None):
         super().__init__(parent)
         self.setObjectName(name or "appshell")
+        self.setAttribute(Qt.WA_StyledBackground, True)
         self.settings = settings or {}
         self._settings_controller = settings_controller
 
