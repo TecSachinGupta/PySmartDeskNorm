@@ -5,7 +5,9 @@ from views.widgets.Sidebar import Sidebar, SidebarItem
 from views.widgets.TitleBar import TitleBar
 
 
-def test_phase4_chrome(qtbot):
+# NOTE: an integration test that also asserts on TitleBar, Sidebar and AppShell;
+# kept whole to preserve the original assertions.
+def test_main_window_hosts_app_shell_chrome(qtbot):
     settings = Settings().items
 
     title_bar = TitleBar(name="titlebar", parent=None, settings=settings)

@@ -1,3 +1,4 @@
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication
 
 from configs.Themes import Themes
@@ -23,7 +24,7 @@ def test_theme_tokens_are_present_and_apply_sets_stylesheet():
 
 
 def test_swapping_theme_changes_appearance_without_code_changes():
-    """Phase 5 'Done when': a different theme file restyles the app with no code change."""
+    """A different theme file must restyle the app with no code change."""
     app = QApplication.instance() or QApplication([])
 
     default_qss = Themes(theme="default").apply(app)
@@ -55,11 +56,12 @@ def test_chrome_widgets_carry_no_inline_stylesheet(qtbot):
     assert all(item.styleSheet() == "" for item in sidebar.items)
 
 
-def test_sidebar_active_state_uses_theme_driven_property(qtbot):
-    sidebar = Sidebar(name="sidebar", settings={})
-    qtbot.addWidget(sidebar)
+def test_themed_widgets_opt_into_styled_backgrounds(qtbot):
+    """Plain QWidget subclasses silently ignore QSS backgrounds without this attribute."""
+    shell = AppShell(settings={})
+    qtbot.addWidget(shell)
 
-    sidebar.set_active_page("tools")
-
-    for item in sidebar.items:
-        assert item.property("active") is (item.page_id == "tools")
+    assert shell.testAttribute(Qt.WA_StyledBackground)
+    assert shell.sidebar.testAttribute(Qt.WA_StyledBackground)
+    assert shell.credits_bar.testAttribute(Qt.WA_StyledBackground)
+    assert all(item.testAttribute(Qt.WA_StyledBackground) for item in shell.sidebar.items)
