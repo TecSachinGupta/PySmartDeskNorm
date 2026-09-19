@@ -1,6 +1,6 @@
-
 from PySide6.QtGui import QColor
-from PySide6.QtWidgets import QLabel, QGraphicsDropShadowEffect
+from PySide6.QtWidgets import QGraphicsDropShadowEffect, QLabel
+
 
 class Tooltip(QLabel):
     style = """
@@ -14,28 +14,31 @@ class Tooltip(QLabel):
                     font: 800 9pt "Segoe UI";
                 }}
             """
-    def __init__(self,
-                 name = None,
-                 parent = None,
-                 backgroundColor = None,
-                 textColor = None,
-                 toottipText = None 
-                ):
+
+    def __init__(
+        self,
+        name=None,
+        parent=None,
+        backgroundColor=None,
+        textColor=None,
+        tooltipText=None,
+        **kwargs,
+    ):
         super().__init__()
         if name is not None:
             self.setObjectName(name)
         else:
-            self.setObjectName(u"label_tooltip")
+            self.setObjectName("label_tooltip")
         if parent is not None:
             self.setParent(parent)
-        
+
         style = self.style.format(
-            backgroundColor = backgroundColor,
-            textColor = textColor
+            backgroundColor=backgroundColor,
+            textColor=textColor,
         )
         self.setStyleSheet(style)
         self.setMinimumHeight(34)
-        self.setText(toottipText)
+        self.setText(tooltipText or "")
         self.adjustSize()
 
         # SET DROP SHADOW

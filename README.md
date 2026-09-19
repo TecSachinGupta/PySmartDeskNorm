@@ -23,29 +23,28 @@ PySmartDeskNorm is a PySide6 Boilerplate for creating a Python based Desktop app
  - PySide = 6.4.0 ![Python](https://img.shields.io/badge/-PySide6-1e415e?logo=PySide&style=flat-square)
 
 # Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-## Prerequisites
-What things you need to install the software and how to install them
-* Anaconda
-	1. Downlaod Anaconda from official website.
-    2. On Windows follow the Installer.
-	3. On Ubuntu use terminal to run the downloaded file and follow the instruction
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ## Installing
-A step by step series of examples that tell you how to get a development env running
 1. Clone this PySmartDeskNorm repository.
-	```
-		git clone https://github.com/TecSachinGupta/PySmartDeskNorm
-	```
-2. Create a new Anaconda environment using 
-     ```
-          conda env create -f environment.yml
-     ```
-3. Run code using 
-	```
-		cd src/ & python -B app.py
-	```
+   ```bash
+   git clone https://github.com/TecSachinGupta/PySmartDeskNorm
+   ```
+2. Create and activate a virtual environment.
+   ```bash
+   cd PySmartDeskNorm
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+3. Install the project and dev dependencies.
+   ```bash
+   python -m pip install --upgrade pip
+   pip install -e '.[dev]'
+   ```
+4. Run the app from the project root.
+   ```bash
+   python -B src/app.py
+   ```
 
 ## Structure
 ```

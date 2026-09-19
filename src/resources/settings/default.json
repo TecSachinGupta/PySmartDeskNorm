@@ -1,6 +1,7 @@
 {
     "app_name": "PySmartDeskNorm",
     "version" : "v1.0.0",
+    "description": "A PySide6 desktop UI foundation with theming, navigation, and a reusable component library.",
     "copyright" : "",
     "year" : 2022,
     "theme" : "default",

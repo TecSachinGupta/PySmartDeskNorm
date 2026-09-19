@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pysmartdesknorm"
+version = "0.1.0"
+description = "PySide6 desktop UI foundation"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "PySide6==6.11.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-qt",
+    "ruff",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+# Naming (N) is intentionally excluded: this codebase uses one-PascalCase-file-per-class
+# for views/configs (Button.py, Row.py, TitleBar.py, ...), matching Qt/PySide convention.
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "RUF"]
+

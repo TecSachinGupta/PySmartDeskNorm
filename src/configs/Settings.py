@@ -1,22 +1,24 @@
 import errno
 import json
-import os
+from pathlib import Path
 
-class Settings(object):
+
+class Settings:
     def __init__(self, *args, **kwargs):
-        file_name = kwargs.get('settings', 'default')
-        self.file_path = "resources/settings/{file_name}.json".format(file_name = file_name)
-        if not os.path.isfile(self.file_path):
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file_name)
-        super(Settings, self).__init__()
+        file_name = kwargs.get("settings", "default")
+        root_dir = Path(__file__).resolve().parent.parent
+        self.file_path = root_dir / "resources" / "settings" / f"{file_name}.json"
+        if not self.file_path.is_file():
+            raise FileNotFoundError(errno.ENOENT, "No such file or directory", str(self.file_path))
+        super().__init__()
         self.items = {}
         self.deserialize()
-    
+
     def serialize(self):
-        with open(self.file_path, "w", encoding='utf-8') as write:
+        with open(self.file_path, "w", encoding="utf-8") as write:
             json.dump(self.items, write, indent=4)
-    
+
     def deserialize(self):
-        with open(self.file_path, "r", encoding='utf-8') as reader:
+        with open(self.file_path, encoding="utf-8") as reader:
             settings = json.loads(reader.read())
             self.items = settings

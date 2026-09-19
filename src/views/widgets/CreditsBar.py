@@ -1,54 +1,48 @@
-
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget, QSizePolicy, QSpacerItem
+from PySide6.QtWidgets import QHBoxLayout, QLabel, QSizePolicy, QSpacerItem, QWidget
+
 
 class CreditsBar(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
         if kwargs.get("name") is not None:
             self.setObjectName(kwargs.get("name"))
-        
-        self.setParent(kwargs.get("parent"))
-        self.settings = kwargs.get("settings")
-        
-        custom_message = QLabel(kwargs.get("customMessage"))
-        copyright = QLabel(args[0])
-        version = QLabel(args[1])
 
-        custom_message.setAlignment(Qt.AlignVCenter)
+        if kwargs.get("parent") is not None:
+            self.setParent(kwargs.get("parent"))
+        self.settings = kwargs.get("settings")
+
+        self._radius = 8
+        self._bg_two = "#343b48"
+        self._text_size = 9
+        self._font_family = "Segoe UI"
+        self._text_description_color = "#8a95aa"
+        self._padding = 10
+
+        self._custom_message_label = QLabel(kwargs.get("customMessage") or "")
+        self._custom_message_label.setAlignment(Qt.AlignVCenter)
+        self._custom_message_label.setVisible(bool(kwargs.get("customMessage")))
+
+        copyright = QLabel(args[0] if args else kwargs.get("copyright", ""))
+        version = QLabel(args[1] if len(args) > 1 else kwargs.get("version", ""))
+
         copyright.setAlignment(Qt.AlignVCenter)
         version.setAlignment(Qt.AlignVCenter)
 
-        hSpacer = QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        spacer = QSpacerItem(20, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.frameLayout = QHBoxLayout()
-        if kwargs.get("customMessage") is not None:
-            self.frameLayout.addWidget(custom_message)
-        
+        self.frameLayout = QHBoxLayout(self)
+        self.frameLayout.setContentsMargins(8, 4, 8, 4)
+        self.setLayout(self.frameLayout)
+
+        self.frameLayout.addWidget(self._custom_message_label)
         self.frameLayout.addWidget(copyright)
-        self.frameLayout.addSpacerItem(hSpacer)
+        self.frameLayout.addSpacerItem(spacer)
         self.frameLayout.addWidget(version)
 
     def render(self):
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(0,0,0,0)
+        return self.frameLayout
 
-        # BG STYLE
-        style = f"""
-            #creditsBarFrame {{
-                border-radius: {self._radius}px;
-                background-color: {self._bg_two};
-            }}
-            .QLabel {{
-                font: {self._text_size}pt "{self._font_family}";
-                color: {self._text_description_color};
-                padding-left: {self._padding}px;
-                padding-right: {self._padding}px;
-            }}
-        """
-
-        frame = QFrame()
-        frame.setObjectName("creditsBarFrame")
-        
-
-        
+    def set_custom_message(self, message: str) -> None:
+        self._custom_message_label.setText(message or "")
+        self._custom_message_label.setVisible(bool(message))

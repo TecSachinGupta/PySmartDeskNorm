@@ -2,6 +2,7 @@ from typing import Self
 
 from PySide6.QtWidgets import QFrame, QLayout
 
+
 class Div(QFrame):
     def __init__(self: Self, content: QLayout, **kwargs):
         super().__init__()
@@ -13,5 +14,5 @@ class Div(QFrame):
             self.setParent(kwargs.get("parent"))
         if kwargs.get("color") is not None:
             self.setStyleSheet("background: {color};".format(color=kwargs.get("color")))
-        
+
         self.setLayout(content)

@@ -1,2 +1,2 @@
-from .Settings import Settings
-from .Themes import Themes
+from .Settings import Settings as Settings
+from .Themes import Themes as Themes
